@@ -1,0 +1,23 @@
+{
+  "name": "toru.js",
+  "version": "1.0.0",
+  "description": "A simple and easy-to-use Discord bot library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shunnyyx/toru.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "library"
+  ],
+  "author": "Shunny",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.16.2"
+  }
+}
