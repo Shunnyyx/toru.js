@@ -97,14 +97,27 @@ class Toru {
       .replaceAll('<$guild.region>', commandFunctions.guildRegion(message.guild))
       .replaceAll('<$client.uptime>', commandFunctions.clientUptime(this.client))
       .replaceAll('<$message.content>', commandFunctions.messageContent(message))
+
+            // Nuevo para manejar roles con ID opcional
+            .replace(/<\$user.roles(?:\: "(.*?)")?>/g, (match, userId) => {
+              return commandFunctions.userRoles(message.guild, message.member, userId || message.author.id);
+          })
+          // Nuevo para manejar avatar con ID opcional
+          .replace(/<\$user.avatar(?:\: "(.*?)")?>/g, (match, userId) => {
+              return commandFunctions.userAvatar(message.guild, message.member, userId || message.author.id);
+          })
+          .replace(/<\$image: "(.*?)">/g, (_, url) => commandFunctions.image(url))
+          .replace(/<\$thumbnail: "(.*?)">/g, (_, url) => this.validateURL(url) ? url : '')
+          
+      
       .replace(/<\$channel.type(?:\: "(.*?)")?>/g, (match, id) => {
         return id ? commandFunctions.channelType(message.guild, id) : commandFunctions.channelType(message.channel);
       })
-      .replace(/<\$image: "(.*?)">/g, (_, url) => commandFunctions.image(url))
-      .replace(/<\$thumbnail: "(.*?)">/g, (_, url) => this.validateURL(url) ? url : '')
+      
       .replaceAll('<$client.guildCount>', commandFunctions.clientGuildCount(this.client))
       .replaceAll('<$client.memberCount>', commandFunctions.clientMemberCount(this.client))
-      .replaceAll('<$commands.count>', commandFunctions.commandsCount(this.commands));
+      .replaceAll('<$commands.count>', commandFunctions.commandsCount(this.commands))
+      .replaceAll('<$guild.id>', commandFunctions.guildId(message.guild))
   }
 
   validateURL(url) {
